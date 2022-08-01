@@ -11,18 +11,40 @@
 	],
 	"activationEvents": [
         "onCommand:myextension.helloWorld",
-		"onCommand:myextension.action1"
+		"onCommand:myextension.jumptoline",
+		"onView:search-view"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"panel": [
+				{
+					"id": "search-view-container",
+					"title": "Search",
+					"icon": "$(search)"
+				}
+			]
+		},
+		"views": {
+			"search-view-container": [{
+				"id": "search-view",
+				"name": "Search Results",
+				"contextualTitle": "Search Results"
+			}]
+		},
 		"commands": [
 			{
 				"command": "myextension.helloWorld",
 				"title": "Hello World"
 			},
 			{
-				"command": "myextension.action1",
-				"title": "Action 1"
+				"command": "myextension.search",
+				"title": "Search"
+			},
+			{
+				"command": "myextension.jumptoline",
+				"title": "Jump to match",
+				"enablement": "true"
 			}
 		],
 		"configuration":[

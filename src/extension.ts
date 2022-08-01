@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import { config } from 'process';
 import * as vscode from 'vscode';
+import {Search, SearchTreeDataProvider} from "./SearchTreeDataProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -31,22 +32,20 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand("myextension.action1", () => {
-		vscode.commands.executeCommand("editor.action.addCommentLine");
-		let uri: vscode.Uri = vscode.Uri.parse(`command:editor.action.addCommentLine`);
-		console.log(`${uri}`);
-	});
-
-	context.subscriptions.push(disposable);
-
-	vscode.languages.registerHoverProvider(["json","jsonc"],
-		new(
+	vscode.languages.registerHoverProvider(["json","jsonc"], new(
 			class implements vscode.HoverProvider {
 				provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
-					return new vscode.Hover("Hahaha");
+					const commentCommandUri = vscode.Uri.parse(`command:editor.action.addCommentLine`);
+					const content = new vscode.MarkdownString(`[Add comment](${commentCommandUri})`);
+
+					content.isTrusted = true;
+
+					return new vscode.Hover(content);
 				};
 			})()
 		);
+
+	new Search(context);
 }
 
 async function printDefinitionsForActiveEditor() {
