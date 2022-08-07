@@ -20,9 +20,10 @@ export class Search {
                     for (let lineNo = 0; lineNo < document.lineCount; lineNo++) {
                         if(document.lineAt(lineNo).text.includes(value!))
                         {
-                            let s = new vscode.MarkdownString(document.lineAt(lineNo).text.replace(value!, "<b>"+value!+"</b>"));
-                            s.supportHtml = true;
-                            s.isTrusted = true;
+                            let s = document.lineAt(lineNo).text;
+                            // let s = new vscode.MarkdownString(document.lineAt(lineNo).text.replace(value!, "<b>"+value!+"</b>"));
+/*                             s.supportHtml = true;
+                            s.isTrusted = true; */
                             searchTreeItems.push(new SearchTreeItem(
                                 s,
                                 document.uri,

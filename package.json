@@ -12,6 +12,7 @@
 	"activationEvents": [
         "onCommand:myextension.helloWorld",
 		"onCommand:myextension.jumptoline",
+		"onCommand:myextension.search",
 		"onView:search-view"
 	],
 	"main": "./out/extension.js",
